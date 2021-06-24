@@ -3,6 +3,9 @@ import { ITicket } from '../../store/type';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import ReactCardFlip from 'react-card-flip';
+import { useDispatch } from 'react-redux';
+import { Dispatch } from 'redux';
+import { buyTicket } from '../../store/actionCreators';
 
 type Props = {
 	ticket: ITicket;
@@ -122,7 +125,10 @@ function Ticket(props: Props) {
 	const toggle = useCallback(() => {
 		toggleView(!isOpenedDetail);
 	}, [isOpenedDetail, toggleView]);
-	const buyTicket = () => {};
+	const dispatch: Dispatch<any> = useDispatch();
+	const buySelectedTicket = useCallback(() => {
+		dispatch(buyTicket(ticket));
+	}, [ticket, dispatch]);
 	return (
 		<>
 			<ReactCardFlip isFlipped={isOpenedDetail} flipDirection='horizontal'>
@@ -156,7 +162,7 @@ function Ticket(props: Props) {
 					<Value>
 						{ticket.price} {ticket.currencyCode}
 					</Value>
-					<SelectButton onClick={buyTicket}>{t('BUY')}</SelectButton>
+					<SelectButton onClick={buySelectedTicket}>{t('BUY')}</SelectButton>
 					<SelectButton onClick={toggle}>{t('BACK')}</SelectButton>
 				</FlightDetails>
 			</ReactCardFlip>

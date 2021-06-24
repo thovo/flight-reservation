@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import { DispatchType, FlightResultsAction } from './type';
+import { DispatchType, FlightResultsAction, ITicket } from './type';
 
 export function getFlightResults() {
 	const action: FlightResultsAction = {
@@ -25,6 +25,15 @@ export function simulateHttpRequest(action: FlightResultsAction) {
 			dispatch(action);
 		}, 500);
 	};
+}
+
+export function buyTicket(ticket: ITicket) {
+	const action: FlightResultsAction = {
+		type: actionTypes.SELECT_FLIGHT_TICKET,
+		results: [],
+		selectedTicket: ticket,
+	};
+	return (dispatch: DispatchType) => dispatch(action);
 }
 
 export function setDepartCity(departCity: string) {
